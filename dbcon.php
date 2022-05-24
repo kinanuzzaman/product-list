@@ -22,7 +22,7 @@ class Dbcon {
     
    }
 }
-$dbc = new Dbcon();
-$dbc->connect();
+// $dbc = new Dbcon();
+// $dbc->connect();
 
 ?>

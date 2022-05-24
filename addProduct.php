@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,15 +18,13 @@
         <h1 class="col-8 mt-2">Product Add</h1>
         
         <div class="col-4 mt-3">
-<button type="submit" form="product_form" class="btn-primary">Save</button>
-        <button form="product_form" class="btn-danger">Cancel</button>
-        <a href="index.php">back</a>
+
 
 </div>
     </header>
     <hr/>
     <section class="d-flex justify-content-center">
-        <form id="product_form"  method="post">
+        <form id="product_form" action="productInput.php" method="POST">
         <div>
             <div>
                 <label for="">SKU</label>
@@ -64,6 +61,15 @@
 
             </div>
             </div>
+            <div id="Book" class="dynamic  mt-3">
+<div>
+<h6>Please provide weight in kilogram</h6>
+                <label for="">Weight(KG)</label>
+                <input type="text" id="weight" name="weight">
+
+            </div>
+
+</div>
             <div id="Furniture" class="dynamic mt-3">
             <div>
             <h6>Please provide height in centimeter</h6>
@@ -82,20 +88,11 @@
                 <label for="">Length(CM)</label>
                 <input type="text" id="length" name="length">
 
-            </div>
-</div>
-<div id="Book" class="dynamic  mt-3">
-<div>
-<h6>Please provide weight in kilogram</h6>
-                <label for="">Weight(KG)</label>
-                <input type="text" id="weight" name="weight">
-
-            </div>
-
-</div>
-         
+            </div>  
         </div>
-
+        <button type="submit" name="submit" form="product_form" class="btn-primary">Save</button>
+        <button form="product_form" class="btn-danger">Cancel</button>
+        <a href="index.php">back</a>
        
         </form>
     </section>
