@@ -19,26 +19,27 @@
         <h1 class="col-8 mt-2">Product List</h1>
         <div class="col-4 mt-3">
         <a href="addProduct.php"><button class="btn-primary">Add</button></a>
-        <button class="delete-product-btn btn-danger">Mass Delete</button>
+        <button type="submit" class="btn-danger" id="delete-product-btn" name="delete-product-btn" form="delete-product-form">Mass Delete</button>
         </div>
 </header>
 <hr/>
      <section>
-        <?php
-        include 'productList.php';       
-          $product = new ProductList;
-        $product->getProducts();
-          ?>
-          <div class="border w-25 d-flex p-2" >
-          <input type="checkbox" class="">
+       <form action="mulDelete.php" method="POST" id="delete-product-form">
+          <div class="d-flex p-2 flex-wrap" >
+          <!-- <input type="checkbox" class="">
           <ul>
               <li>JVC200123</li>
               <li>Acme DISC</li>
               <li>1.00$</li>
               <li>Size: 700 MB</li>
-          </ul>
+          </ul> -->
+          <?php
+        include 'productList.php';       
+          $product = new ProductList;
+         $product->getProducts();
+          ?>
           </div>
-        
+          </form>
      </section> 
      <footer>
          <hr />

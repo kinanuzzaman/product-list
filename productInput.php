@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
        class AddProduct extends Dbcon {
 
         public function setProduct($sku,$name,$price,$type,$size,$weight,$height,$width,$length){
-            echo "inside set product";
+           
            
           $sql = "INSERT INTO products (sku,name,price,type,size,weight,height,width,length) 
           VALUES (:sku,:name,:price,:type,:size,:weight,:height,:width,:length)";
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       private   $length;
       
         public function __construct($sku,$name,$price,$type,$size,$weight,$height,$width,$length) {
-          echo"inside constructor";
+         
             $this->sku = $sku;
             $this->name = $name;
             $this->price = $price;
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       
           Public function Product() {
   
-               echo"inside product add function";
+              
                $this->setProduct( $this->sku, $this->name,$this->price, $this->type,$this->size,$this->weight,$this->height,$this->width,$this->length);
           }   
       }
