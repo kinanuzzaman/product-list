@@ -18,9 +18,11 @@
         <h1 class="col-8 mt-2">Product Add</h1>
         
         <div class="col-4 mt-3">
+            <button type="submit" name="submit" form="product_form" class="btn-primary">Save</button>
+            <button form="product_form" class="btn-danger">Cancel</button>
+            <a href="index.php">back</a>
 
-
-</div>
+        </div>
     </header>
     <hr/>
     <section class="d-flex justify-content-center">
@@ -90,9 +92,7 @@
 
             </div>  
         </div>
-        <button type="submit" name="submit" form="product_form" class="btn-primary">Save</button>
-        <button form="product_form" class="btn-danger">Cancel</button>
-        <a href="index.php">back</a>
+      
        
         </form>
     </section>

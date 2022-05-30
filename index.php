@@ -14,7 +14,7 @@
 </style>
 <body>
     
-<div class="container border">
+<div class="container border overflow-hidden">
 <header class="row">
         <h1 class="col-8 mt-2">Product List</h1>
         <div class="col-4 mt-3">
@@ -25,20 +25,14 @@
 <hr/>
      <section>
        <form action="mulDelete.php" method="POST" id="delete-product-form">
-          <div class="d-flex p-2 flex-wrap" >
-          <!-- <input type="checkbox" class="">
-          <ul>
-              <li>JVC200123</li>
-              <li>Acme DISC</li>
-              <li>1.00$</li>
-              <li>Size: 700 MB</li>
-          </ul> -->
+          <div class="row row-cols-4 g-2" >
           <?php
         include 'productList.php';       
           $product = new ProductList;
          $product->getProducts();
           ?>
           </div>
+
           </form>
      </section> 
      <footer>

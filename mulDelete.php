@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $extractId = implode(',',$allId);
 
-    echo $extractId;
+    // echo $extractId;
   
     $sql = "DELETE FROM products WHERE id IN ($extractId)";
     $stmt = $dbc->connect()->query($sql);

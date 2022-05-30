@@ -1,0 +1,14 @@
+?>
+   
+    <div class="border w-25 d-flex p-2 m-1" >
+          <input type="checkbox" class="delete-checkbox" name= "prod_del_id[]" value="<?= $row["id"];?>">
+          <ul>
+              <li><?php echo $row ['sku']; ?></li>
+              <li><?php echo $row ['name']; ?></li>
+              <li><?php echo $row ['price']; ?></li>
+              <li><?php echo $row ['type']; ?></li>
+          </ul>
+          </div>
+<?php
+
+ $data = new Furniture($row['sku'],$row['name'],$row['price'],$row['type'],$row['size'],$row['weight'],$row['height'],$row['width'],$row['length']);

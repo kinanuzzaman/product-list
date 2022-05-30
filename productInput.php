@@ -3,7 +3,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
    {
 
-    if($_POST['type'] == 'Funiture'){
+    if($_POST['type'] == 'Furniture'){
       $_POST['size'] = NULL;
       $_POST['weight'] = NULL;
 
@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       $_POST['height'] = NULL;
       $_POST['width'] = NULL;
       $_POST['length'] = NULL; 
-
     }
        $sku = $_POST['sku'];
        $name = $_POST['name'];
@@ -29,12 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
        $width = $_POST['width'];
        $length = $_POST['length']; 
 
-      //  echo $type;   
-      //  echo $size;
-      //  echo $weight;
-
        include 'dbcon.php';
-       //include 'addProduct.class.php';
+       //  addProduct;
        class AddProduct extends Dbcon {
 
         public function setProduct($sku,$name,$price,$type,$size,$weight,$height,$width,$length){
@@ -53,13 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                    ':height' => $height,
                    ':width' =>  $width,
                    ':length' =>  $length]);
-       
-              //  echo "New records created successfully";
           
         }
       }
       
-     // include 'addProductContr.php';
+     // addProductContr;
    
      class AddProductContr extends AddProduct{
 
@@ -85,17 +78,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $this->width = $width;
             $this->length = $length;
         }
-        
-      
+        private function emptyInput(){
+          $result;
+          if( empty($this->sku) || empty($this->name) || empty($this->price) || empty($this->type)) {
+            $result = false;
+          }
+          else {
+            $result = true;
+          }
+          return $result;
+        }
+
           Public function Product() {
   
               
                $this->setProduct( $this->sku, $this->name,$this->price, $this->type,$this->size,$this->weight,$this->height,$this->width,$this->length);
           }   
       }
-  
-
-echo "later";
 $add = new AddProductContr($sku,$name,$price,$type,$size,$weight,$height,$width,$length);
 $add->Product();
  
