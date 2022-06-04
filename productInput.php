@@ -50,8 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                    ':length' =>  $length]);
           
         }
-      }
-      
+          }
      // addProductContr;
    
      class AddProductContr extends AddProduct{
@@ -65,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       private   $height;
       private   $width;
       private   $length;
+      public $errSku;
       
         public function __construct($sku,$name,$price,$type,$size,$weight,$height,$width,$length) {
          
@@ -78,28 +78,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $this->width = $width;
             $this->length = $length;
         }
-        private function emptyInput(){
-          $result;
-          if( empty($this->sku) || empty($this->name) || empty($this->price) || empty($this->type)) {
-            $result = false;
-          }
-          else {
-            $result = true;
-          }
-          return $result;
-        }
+        Public function Product() {
+           if($this->skuTaken() == false)
+           {
+            echo "Sku is taken. Try another one";
+            header("location: addProduct.php");
+             exit();
+           }
 
-          Public function Product() {
-  
-              
-               $this->setProduct( $this->sku, $this->name,$this->price, $this->type,$this->size,$this->weight,$this->height,$this->width,$this->length);
-          }   
+             $this->setProduct( $this->sku, $this->name,$this->price, $this->type,$this->size,$this->weight,$this->height,$this->width,$this->length);
+        }    
+        public function checkSku($sku)
+        {
+            $sql = "SELECT sku FROM products WHERE sku = ?" ;
+            $stmt = $this->connect()->prepare($sql);
+            if(!$stmt->execute(array($sku))) 
+            {
+              $stmt = null;
+            }
+            $resultCheck;
+            
+            if($stmt->rowCount() > 0)
+            {
+              $resultCheck = false;
+            }
+            else
+            {
+              $resultCheck = true;
+            }
+            return $resultCheck;
+        }
+       
+        function skuTaken()
+          {
+            $result;
+            if(!$this->checkSku($this->sku))
+            {
+              $result = false;
+          
+            }
+            else
+            {
+              $result = true;
+            }
+            return $result;
+          }
       }
 $add = new AddProductContr($sku,$name,$price,$type,$size,$weight,$height,$width,$length);
 $add->Product();
- 
 header("location: index.php");
-   }
-  
+
+   
+    }
 
 ?>
+
+
+
+
+
+
+

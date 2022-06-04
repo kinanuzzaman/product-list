@@ -18,9 +18,9 @@
         <h1 class="col-8 mt-2">Product Add</h1>
         
         <div class="col-4 mt-3">
-            <button type="submit" name="submit" form="product_form" class="btn-primary">Save</button>
-            <button form="product_form" class="btn-danger">Cancel</button>
-            <a href="index.php">back</a>
+            <button type="submit" id="submit" name="submit" form="product_form" class="btn-primary">Save</button>
+           
+            <a href="index.php"> <button class="btn-danger">Cancel</button></a>
 
         </div>
     </header>
@@ -31,17 +31,20 @@
             <div>
                 <label for="">SKU</label>
                 <input type="text" id="sku" name="sku">
-
+                <span id="errorSku" style="display: none" class="text-danger error"></span>
+                
             </div>
+          
             <div class="mt-3">
                 <label for="">Name</label>
                 <input type="text" id="name" name="name">
+                <span id="errorName" style="display: none" class="text-danger error"></span>
 
             </div>
             <div class="mt-3">
                 <label for="">Price($)</label>
                 <input type="text" id="price" name="price">
-
+                <span id="errorPrice" style="display: none" class="text-danger error"></span>
             </div>
             <div class="mt-3">
                 <label for="">Type Switcher</label>
@@ -52,6 +55,7 @@
     <option value="Book">Book</option>
    
   </select>
+  <span id="errorType" style="display: none" class="text-danger error"></span>
 
             </div>
           
@@ -60,7 +64,7 @@
                 <h6>Please provide size in megabyte</h6>
                 <label for="">Size(MB)</label>
                 <input type="text" id="size" name="size">
-
+                <span id="errorSize" style="display: none" class="text-danger error"></span>
             </div>
             </div>
             <div id="Book" class="dynamic  mt-3">
@@ -68,7 +72,7 @@
 <h6>Please provide weight in kilogram</h6>
                 <label for="">Weight(KG)</label>
                 <input type="text" id="weight" name="weight">
-
+                <span id="errorWeight" style="display: none" class="text-danger error"></span>
             </div>
 
 </div>
@@ -77,18 +81,21 @@
             <h6>Please provide height in centimeter</h6>
                 <label for="">Height(CM)</label>
                 <input type="text" id="height" name="height">
+                <span id="errorHeight" style="display: none" class="text-danger error"></span>
 
             </div>
             <div class="mt-3">
             <h6>Please provide width in centimeter</h6>
                 <label for="">Width(CM)</label>
                 <input type="text" id="width" name="width">
+                <span id="errorWidth" style="display: none" class="text-danger error"></span>
 
             </div>
             <div class="mt-3">
             <h6>Please provide length in centimeter</h6>
                 <label for="">Length(CM)</label>
                 <input type="text" id="length" name="length">
+                <span id="errorLength" style="display: none" class="text-danger error"></span>
 
             </div>  
         </div>
@@ -107,12 +114,96 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(){
+           
             $('#productType').on('change',function(){
                 $(".dynamic").hide();
                $("#" + $(this).val()).fadeIn(700);
-
             }).change();
-        });
+
+            $("form").submit(function(event){
+                event.preventDefault();
+                $(".error").hide();
+                var sku = $("#sku").val();
+                var name = $("#name").val();
+                var price = $("#price").val();
+                var type = $("#productType").val();
+                var size = $("#size").val();
+                var weight = $("#weight").val();
+                var height = $("#height").val();
+                var width = $("#width").val();
+                var length = $("#length").val();
+               
+
+                $(".error").hide();
+if(sku == ""){
+$("#errorSku").fadeIn().text("Sku required.");
+$("input#sku").focus();
+return false;
+}else if(!/^[a-zA-Z0-9]+$/.test(sku)){
+    $("#errorSku").fadeIn().text("Only alphanumeric string are allowed.");
+$("input#sku").focus();
+}else{
+   
+}
+
+if(name == ""){
+$("#errorName").fadeIn().text("Name required");
+$("input#name").focus();
+return false;
+}else if(!/^[a-zA-Z\s]+$/.test(name))
+{
+//Throw Error
+$("#errorName").fadeIn().text("Only alphabets and whitespace are allowed.");
+$("input#name").focus();
+return false;
+}
+
+if(price == ""){
+$("#errorPrice").fadeIn().text("Price required");
+$("input#price").focus();
+return false;
+}else if(!/^[0-9]/.test(price)){
+$("#errorPrice").fadeIn().text("Only integer value");
+$("input#price").focus();   
+}
+if(type == ""){
+$("#errorType").fadeIn().text("Type required");
+$("input#price").focus();
+return false;
+}
+if(type == "DVD"){
+    if(size == ""){
+$("#errorSize").fadeIn().text("Size required");
+$("input#size").focus();
+return false;
+} 
+}
+if(type == "Book"){
+    if(weight == ""){
+$("#errorWeight").fadeIn().text("Weight required");
+$("input#weight").focus();
+return false;
+}
+}
+
+
+// ajax
+$.ajax({
+type:"POST",
+url: "productInput.php",
+data: {
+    sku: sku, name: name, price: price, type: type, size: size, weight: weight, height: height, width: width, length: length
+},
+success: function(){
+    window.location.replace('index.php');
+}
+            });
+});
+return false;
+});  
+
+
+
     </script>
 </body>
 </html>

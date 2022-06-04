@@ -53,16 +53,6 @@ while($row = $stmt->fetch()) {
               <li><?php 
     $ProductType = new $row['type']();
     $ProductType->dimension($row['size'],$row['weight'],$row['height'],$row['width'],$row['length']);
-
-    //           if($row['type'] == 'Furniture'){
-    //   echo $row['height'] ;
-    //   echo 'x'.$row['width'] ;
-    //   echo  'x'.$row['length'] ;    
-    // }elseif($row['type'] == 'DVD'){
-    //     echo $row['size'] ; 
-    // }else{    
-    //     echo $row['weight'] ;
-    // } 
     ?></li>
           </ul>
           </div>   
