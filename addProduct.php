@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=h, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -32,7 +32,7 @@
                 <label for="">SKU</label>
                 <input type="text" id="sku" name="sku">
                 <span id="errorSku" style="display: none" class="text-danger error"></span>
-                
+              
             </div>
           
             <div class="mt-3">
@@ -49,7 +49,7 @@
             <div class="mt-3">
                 <label for="">Type Switcher</label>
                 <select name="type" id="productType" class="mt-3">
-                <option selected disabled>Type switcher</option>
+                <option selected disabled value="">Type switcher</option>
     <option value="DVD" >DVD</option>
     <option value="Furniture">Furniture</option>
     <option value="Book">Book</option>
@@ -119,56 +119,83 @@
                 $(".dynamic").hide();
                $("#" + $(this).val()).fadeIn(700);
             }).change();
-
-            $("form").submit(function(event){
-                event.preventDefault();
-                $(".error").hide();
+        
+            //    $('#sku').blur(function(){
+            //     $(".error").hide();
+            //         $.fn.skuCheck();     
+            //     });
+            $('#sku').blur(function(){
+                $("#errorSku").hide();
                 var sku = $("#sku").val();
-                var name = $("#name").val();
-                var price = $("#price").val();
-                var type = $("#productType").val();
+                $.fn.skuCheck();
+              $.ajax({
+type:"POST",
+url: "checkSku.php",
+data: {
+sku: sku
+},
+success: function(data){
+if( data != 0)
+{
+    $("#errorSku").fadeIn().text("Sku is taken. Try new one");
+$("input#sku").focus();
+return false;
+
+} 
+
+}
+  });
+      });
+                $.fn.skuCheck = function(){
+                    var sku = $("#sku").val();
+
+                   
+
+                    if(sku == ""){
+$("#errorSku").fadeIn().text("Sku required.");
+$("input#sku").focus();
+return false;
+}else if(!/[a-zA-Z0-9]+$/.test(sku)){
+    $("#errorSku").fadeIn().text("Only alphanumeric string are allowed.");
+$("input#sku").focus();
+return false;
+}
+                }
+                $.fn.nameCheck = function(){
+    var name = $("#name").val();
+    if(name == ""){
+$("#errorName").fadeIn().text("Name required");
+$("input#name").focus();
+return false;
+}else if(!/^[a-zA-Z\s]+$/.test(name)){
+$("#errorName").fadeIn().text("Only alphabets and whitespace are allowed.");
+$("input#name").focus();
+return false;
+}
+}
+$.fn.priceCheck = function(){
+    var price = $("#price").val();
+    if(price == ""){
+$("#errorPrice").fadeIn().text("Price required");
+$("input#price").focus();
+return false;
+}else if(!/[0-9]/.test(price)){
+$("#errorPrice").fadeIn().text("Only integer value");
+$("input#price").focus();
+return false;   
+}
+
+}
+$.fn.typeCheck = function(){
+    var type = $("#productType").val();
                 var size = $("#size").val();
                 var weight = $("#weight").val();
                 var height = $("#height").val();
                 var width = $("#width").val();
                 var length = $("#length").val();
-               
-
-                $(".error").hide();
-if(sku == ""){
-$("#errorSku").fadeIn().text("Sku required.");
-$("input#sku").focus();
-return false;
-}else if(!/^[a-zA-Z0-9]+$/.test(sku)){
-    $("#errorSku").fadeIn().text("Only alphanumeric string are allowed.");
-$("input#sku").focus();
-}else{
-   
-}
-
-if(name == ""){
-$("#errorName").fadeIn().text("Name required");
-$("input#name").focus();
-return false;
-}else if(!/^[a-zA-Z\s]+$/.test(name))
-{
-//Throw Error
-$("#errorName").fadeIn().text("Only alphabets and whitespace are allowed.");
-$("input#name").focus();
-return false;
-}
-
-if(price == ""){
-$("#errorPrice").fadeIn().text("Price required");
-$("input#price").focus();
-return false;
-}else if(!/^[0-9]/.test(price)){
-$("#errorPrice").fadeIn().text("Only integer value");
-$("input#price").focus();   
-}
-if(type == ""){
+if(type == null){
 $("#errorType").fadeIn().text("Type required");
-$("input#price").focus();
+$("input#productType").focus();
 return false;
 }
 if(type == "DVD"){
@@ -185,7 +212,40 @@ $("input#weight").focus();
 return false;
 }
 }
-
+if(type == "Furniture"){
+    if(height == ""){
+$("#errorWeight").fadeIn().text("Height required");
+$("input#height").focus();
+return false;
+}
+if(width == ""){
+$("#errorWidth").fadeIn().text("Width required");
+$("input#width").focus();
+return false;
+}
+if(length == ""){
+$("#errorlength").fadeIn().text("Length required");
+$("input#length").focus();
+return false;
+}
+}
+}
+            $("form").submit(function(event){
+                event.preventDefault();
+                $(".error").hide();
+                var sku = $("#sku").val();
+                var name = $("#name").val();
+                var price = $("#price").val();
+                var type = $("#productType").val();
+                var size = $("#size").val();
+                var weight = $("#weight").val();
+                var height = $("#height").val();
+                var width = $("#width").val();
+                var length = $("#length").val();
+                $.fn.skuCheck();
+                $.fn.nameCheck();
+                $.fn.priceCheck();
+                $.fn.typeCheck();
 
 // ajax
 $.ajax({
@@ -201,9 +261,6 @@ success: function(){
 });
 return false;
 });  
-
-
-
     </script>
 </body>
 </html>

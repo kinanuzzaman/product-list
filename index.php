@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=h, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -17,6 +17,7 @@
 <div class="container border overflow-hidden">
 <header class="row">
         <h1 class="col-8 mt-2">Product List</h1>
+       
         <div class="col-4 mt-3">
         <a href="addProduct.php"><button class="btn-primary">Add</button></a>
         <button type="submit" class="btn-danger" id="delete-product-btn" name="delete-product-btn" form="delete-product-form">Mass Delete</button>
@@ -38,6 +39,7 @@
      <footer>
          <hr />
         <p class="d-flex justify-content-center">Scandiweb Test assignment</p>
+        <h6><?php  include 'productInput.php' ;?></h6>
     </footer>
 </div>
    
