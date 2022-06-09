@@ -120,38 +120,35 @@
                $("#" + $(this).val()).fadeIn(700);
             }).change();
         
-            //    $('#sku').blur(function(){
-            //     $(".error").hide();
-            //         $.fn.skuCheck();     
-            //     });
+       
             $('#sku').blur(function(){
                 $("#errorSku").hide();
                 var sku = $("#sku").val();
                 $.fn.skuCheck();
-              $.ajax({
+$.ajax({
 type:"POST",
 url: "checkSku.php",
 data: {
 sku: sku
 },
 success: function(data){
-if( data != 0)
-{
-    $("#errorSku").fadeIn().text("Sku is taken. Try new one");
+    
+    if(data != '0')
+      {
+        $("#errorSku").fadeIn().text("Sku is taken.");
 $("input#sku").focus();
+//$('#submit').attr({'disabled':true,'title':'remove errors'});
 return false;
-
-} 
-
+       }
+   
 }
+
   });
+
       });
-                $.fn.skuCheck = function(){
-                    var sku = $("#sku").val();
-
-                   
-
-                    if(sku == ""){
+$.fn.skuCheck = function(){
+var sku = $("#sku").val();
+if(sku == ""){
 $("#errorSku").fadeIn().text("Sku required.");
 $("input#sku").focus();
 return false;
@@ -161,7 +158,9 @@ $("input#sku").focus();
 return false;
 }
                 }
-                $.fn.nameCheck = function(){
+                
+              
+$.fn.nameCheck = function(){
     var name = $("#name").val();
     if(name == ""){
 $("#errorName").fadeIn().text("Name required");
@@ -173,6 +172,7 @@ $("input#name").focus();
 return false;
 }
 }
+
 $.fn.priceCheck = function(){
     var price = $("#price").val();
     if(price == ""){
@@ -186,6 +186,7 @@ return false;
 }
 
 }
+
 $.fn.typeCheck = function(){
     var type = $("#productType").val();
                 var size = $("#size").val();
@@ -203,6 +204,10 @@ if(type == "DVD"){
 $("#errorSize").fadeIn().text("Size required");
 $("input#size").focus();
 return false;
+}else if(!/[0-9]/.test(size)){
+$("#errorSize").fadeIn().text("Only integer");
+$("input#size").focus();
+return false;
 } 
 }
 if(type == "Book"){
@@ -210,27 +215,44 @@ if(type == "Book"){
 $("#errorWeight").fadeIn().text("Weight required");
 $("input#weight").focus();
 return false;
-}
+}else if(!/[0-9]/.test(weight)){
+$("#errorWeight").fadeIn().text("Only integer");
+$("input#weight").focus();
+return false;
+} 
 }
 if(type == "Furniture"){
     if(height == ""){
-$("#errorWeight").fadeIn().text("Height required");
+$("#errorHeight").fadeIn().text("Height required");
 $("input#height").focus();
 return false;
-}
+}else if(!/[0-9]/.test(height)){
+$("#errorHeight").fadeIn().text("Only integer");
+$("input#height").focus();
+return false;
+} 
 if(width == ""){
 $("#errorWidth").fadeIn().text("Width required");
 $("input#width").focus();
 return false;
-}
+}else if(!/[0-9]/.test(width)){
+$("#errorWidth").fadeIn().text("Only integer");
+$("input#width").focus();
+return false;
+} 
 if(length == ""){
-$("#errorlength").fadeIn().text("Length required");
+$("#errorLength").fadeIn().text("Length required");
 $("input#length").focus();
 return false;
+}else if(!/[0-9]/.test(length)){
+$("#errorLength").fadeIn().text("Only integer");
+$("input#length").focus();
+return false;
+} 
 }
 }
-}
-            $("form").submit(function(event){
+
+  $("form").submit(function(event){
                 event.preventDefault();
                 $(".error").hide();
                 var sku = $("#sku").val();
@@ -254,12 +276,17 @@ url: "productInput.php",
 data: {
     sku: sku, name: name, price: price, type: type, size: size, weight: weight, height: height, width: width, length: length
 },
-success: function(){
-    window.location.replace('index.php');
+success: function(data){
+    if(sku!= "" && name != "" && price != "" && type != "") {
+        window.location.href='index.php';
+    }
+    
 }
+
             });
+               
+    return  false;
 });
-return false;
 });  
     </script>
 </body>

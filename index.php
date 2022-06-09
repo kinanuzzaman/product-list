@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <style>
+    
     ul > li {
         list-style-type: none;
     }
@@ -19,8 +20,8 @@
         <h1 class="col-8 mt-2">Product List</h1>
        
         <div class="col-4 mt-3">
-        <a href="addProduct.php"><button class="btn-primary">Add</button></a>
-        <button type="submit" class="btn-danger" id="delete-product-btn" name="delete-product-btn" form="delete-product-form">Mass Delete</button>
+       <button type="button" class="btn-primary" id="ADD">ADD</button>
+        <button type="submit" class="btn-danger" id="delete-product-btn" name="delete-product-btn" form="delete-product-form">MASS DELETE</button>
         </div>
 </header>
 <hr/>
@@ -39,7 +40,6 @@
      <footer>
          <hr />
         <p class="d-flex justify-content-center">Scandiweb Test assignment</p>
-        <h6><?php  include 'productInput.php' ;?></h6>
     </footer>
 </div>
    
@@ -51,7 +51,12 @@
 
 
 <script>
-    
+    $(document).ready(function(){
+        $( "#ADD" ).click(function() {
+  window.location.href='addProduct.php';
+});
+    });
+   
 </script>
 
 </body>

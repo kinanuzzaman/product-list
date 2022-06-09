@@ -6,7 +6,12 @@ $dbc->connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
    {
+    if( empty($allId)){
+        header("location: index.php");
+    }
     $allId = $_POST['prod_del_id'];
+
+   
 
     $extractId = implode(',',$allId);
 

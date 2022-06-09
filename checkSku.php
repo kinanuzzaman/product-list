@@ -2,34 +2,24 @@
 include 'dbcon.php';
 
 class CheckSku extends Dbcon{
-   
-    public function checkSku($sku)
+   private $sku;
+    public function skuCheck($sku)
     {
+        $this->sku = $sku;
         $sql = "SELECT sku FROM products WHERE sku = ?" ;
         $stmt = $this->connect()->prepare($sql);
-        if(!$stmt->execute(array($sku))) 
+        if(!$stmt->execute(array($this->sku))) 
         {
           $stmt = null;
         }
        
-      $resultCheck = $stmt->rowCount();
-    //     if( $stmt->rowCount()> 0)
-    //     {
-    //       $resultCheck = false;
-    //     // var_dump($resultCheck) ;
-    //     }
-    //     else
-    //     {
-    //       $resultCheck = true;
-         
-    //     }
-        echo $resultCheck;
-    
+      echo  $stmt->rowCount();
 }  
 }
 if(isset($_POST['sku'])){
     $sku = $_POST['sku'];
     $check = new CheckSku;
-    $check->checkSku($sku);
+$check->skuCheck($sku);
+   
 }
 ?>

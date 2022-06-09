@@ -1,12 +1,12 @@
 <?php
 
 //Interface definition
-interface Product {
+interface ProductAdd {
     public function dimension($size,$weight,$height,$width,$length);
   }
   
   // Class definitions
-  class Book implements Product {
+  class Book implements ProductAdd {
     public function dimension($size,$weight,$height,$width,$length) {
       $_POST['size'] = NULL;
          $_POST['height'] = NULL;
@@ -15,14 +15,14 @@ interface Product {
     }
   }
   
-  class Furniture implements Product {
+  class Furniture implements ProductAdd {
     public function dimension($size,$weight,$height,$width,$length) {
       $_POST['size'] = NULL;
          $_POST['weight'] = NULL;
     }
   }
   
-  class DVD implements Product {
+  class DVD implements ProductAdd {
     public function dimension($size,$weight,$height,$width,$length) {
       $_POST['weight'] = NULL;
          $_POST['height'] = NULL;
@@ -31,32 +31,27 @@ interface Product {
     }
   }
   
-
+  if ($_SERVER["REQUEST_METHOD"] == "POST") 
+  {
+  
+  $ProductType = new $_POST['type']();
+  $ProductType->dimension($_POST['size'],$_POST['weight'],$_POST['height'],$_POST['width'],$_POST['length']);
+  
+     $sku = $_POST['sku'];
+     $name = $_POST['name'];
+     $price = $_POST['price'];
+     $type = $_POST['type'];
+     $size = $_POST['size'];
+     $weight = $_POST['weight'];
+     $height = $_POST['height'];
+     $width = $_POST['width'];
+     $length = $_POST['length']; 
+     
+     
+  }
 include 'dbcon.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
-
-
-
-$ProductType = new $_POST['type']();
-$ProductType->dimension($_POST['size'],$_POST['weight'],$_POST['height'],$_POST['width'],$_POST['length']);
-
-   $sku = $_POST['sku'];
-   $name = $_POST['name'];
-   $price = $_POST['price'];
-   $type = $_POST['type'];
-   $size = $_POST['size'];
-   $weight = $_POST['weight'];
-   $height = $_POST['height'];
-   $width = $_POST['width'];
-   $length = $_POST['length']; 
-
-  
-  
-}
-      //  addProduct;
-     
+   
       class InsertProduct extends Dbcon {
 
        public function setProduct($sku,$name,$price,$type,$size,$weight,$height,$width,$length){
@@ -75,11 +70,11 @@ $ProductType->dimension($_POST['size'],$_POST['weight'],$_POST['height'],$_POST[
                   ':height' => $height,
                   ':width' =>  $width,
                   ':length' =>  $length]);
-         
+               
        }
      
          }
-    // addProductContr;
+ 
   
     class ProductContr extends InsertProduct{
 
@@ -108,23 +103,25 @@ $ProductType->dimension($_POST['size'],$_POST['weight'],$_POST['height'],$_POST[
        }
    
        Public function Product() {
+           if(empty($this->sku) || empty($this->name) || empty($this->price) || empty($this->type)){
+               exit();
+           }
 
             $this->setProduct( $this->sku, $this->name,$this->price, $this->type,$this->size,$this->weight,$this->height,$this->width,$this->length);
+          
        } 
      
 
       
      }
 
-     $add = new ProductContr($sku,$name,$price,$type,$size,$weight,$height,$width,$length);
+ 
+   
+    
+   $add = new ProductContr($sku,$name,$price,$type,$size,$weight,$height,$width,$length);
      $add->Product();
-    
-    
-    // header("location: index.php");
-   
   
+     header("location: index.php");
 
-  
-   
 ?>
 
